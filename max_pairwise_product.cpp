@@ -18,6 +18,23 @@ long long MaxPairwiseProduct(const vector<int>& numbers) {
   return result;
 }
 
+long long FastProduct(const vector<int>& numbers){
+  long long result = 0;
+  int n = numbers.size();
+
+  int largest=-1,second=-1;
+
+  for(int i=0;i<n;i++)
+    if(numbers[largest]<numbers[i] || largest == -1)
+      largest = i;
+
+  for(int i=0;i<n;i++)
+    if((numbers[second]<numbers[i] || second == -1) && i!=largest)
+      second = i;
+
+  return ((long long)numbers[largest])*numbers[second];
+}
+
 int main() {
     int n;
     cin >> n;
@@ -26,7 +43,7 @@ int main() {
         cin >> numbers[i];
     }
 
-    long long result = MaxPairwiseProduct(numbers);
+    long long result = FastProduct(numbers);
     cout << result << "\n";
     return 0;
 }

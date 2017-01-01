@@ -6,6 +6,21 @@ using std::vector;
 vector<int> optimal_summands(int n) {
   vector<int> summands;
   //write your code here
+  int i,j;
+  for(i=1;;i++)
+  {
+    int sum = i*(i+1)/2;
+    if(sum>n)
+      break;
+  }
+  i--;
+  for(j=1;j<i;j++)
+    summands.push_back(j);
+
+  int extra = n - i*(i+1)/2;
+  summands.push_back(i+extra);
+
+
   return summands;
 }
 

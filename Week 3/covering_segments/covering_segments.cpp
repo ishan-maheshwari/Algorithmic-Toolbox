@@ -12,10 +12,43 @@ struct Segment {
 vector<int> optimal_points(vector<Segment> &segments) {
   vector<int> points;
   //write your code here
-  for (size_t i = 0; i < segments.size(); ++i) {
-    points.push_back(segments[i].start);
-    points.push_back(segments[i].end);
+  // for (size_t i = 0; i < segments.size(); ++i) {
+  //   points.push_back(segments[i].start);
+  //   points.push_back(segments[i].end);
+  // }
+
+  int n = segments.size();
+
+  for(int i=0;i<n-1;i++)
+    for(int j=i;j<n;j++)
+      if(segments[i].end>segments[j].end){
+        int temp_start = segments[i].start;
+        segments[i].start = segments[j].start;
+        segments[j].start = temp_start;
+
+        int temp_end = segments[i].end;
+        segments[i].end = segments[j].end;
+        segments[j].end = temp_end;
+      }
+
+      int visited[n]={0};
+  
+  for(int i=0;i<n;i++)
+  {
+      if(visited[i]==0)
+      {
+        visited[i]=1;
+
+        for(int j=i+1;j<n;j++)
+        {
+          if(segments[j].start<=segments[i].end)
+            visited[j]=1;
+        }
+
+        points.push_back(segments[i].end);
+      }
   }
+
   return points;
 }
 
